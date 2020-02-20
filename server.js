@@ -80,6 +80,21 @@ app.delete("/user/:username", async (request, response) => {
   }
 });
 
+app.get("/users", async (request, response) => {
+  try {
+    console.log("GET USERS");
+    var userInstances = await UserModel.find({});
+    var usersMap = {};
+    userInstances.map(user => {
+      usersMap[user.id] = user;
+    });
+    console.log(usersMap);
+    response.send(usersMap);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 const start = () => {
   return app.listen(PORT, () => console.log(`server is running on ${PORT}`));
 };
