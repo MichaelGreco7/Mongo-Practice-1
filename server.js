@@ -67,6 +67,19 @@ app.put("/user/:username", async (request, response) => {
   }
 });
 
+app.delete("/user/:username", async (request, response) => {
+  try {
+    console.log("DELETE USER");
+    var userInstance = await UserModel.findOneAndDelete({
+      username: request.params.username
+    });
+    console.log(userInstance);
+    response.send(userInstance);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 const start = () => {
   return app.listen(PORT, () => console.log(`server is running on ${PORT}`));
 };
