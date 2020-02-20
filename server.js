@@ -42,6 +42,17 @@ app.post("/user", async (request, response) => {
   }
 });
 
+app.get("/user", async (request, response) => {
+  try {
+    console.log("GET USER");
+    var userInstance = await UserModel.find({ username: "coolguy" });
+    console.log(userInstance);
+    response.send(userInstance);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 const start = () => {
   return app.listen(PORT, () => console.log(`server is running on ${PORT}`));
 };
